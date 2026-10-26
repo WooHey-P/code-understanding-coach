@@ -9,3 +9,5 @@ __pycache__/
 
 # Owner's working notes (research, plans, reviews); kept locally, not published
 docs/plans/
+# Owner's requirements doc; kept locally, not published
+docs/requirements.md
