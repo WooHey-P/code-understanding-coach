@@ -10,11 +10,26 @@ over-reading or overclaiming.
 | No feature named ("this project", "my code", "the whole thing") | Whole project | Start without asking |
 | A feature named, one clear flow found | Feature | Start without asking |
 | A feature named, several distinct flows found (e.g. user login and admin login) | Feature | List the candidates with a `path:line` each and ask once which one, or say you will cover both |
-| A feature named, nothing found | — | Say what you searched for, list the main areas you did find, and wait for their choice. Do not substitute a related feature on your own, and do not invent questions |
+| A feature named, nothing found | — | Reply with the search terms you tried, a short list of the main areas you did find, and a request to pick one — then stop. Do not substitute a related feature on your own, and do not invent questions |
 | The folder holds several unrelated projects with no shared workspace config | — | Ask once which project |
 
 Ask at most one scoping question, and only in the cases above. Unnecessary interviews
 are the most common way this skill annoys people.
+
+Example reply when the feature does not exist:
+
+```text
+I couldn't find a search feature. Searched for: search, query, find, filter, index,
+lookup, autocomplete.
+
+Main areas in this project:
+- posts: drafting, publishing, scheduling
+- comments and moderation
+- accounts and roles
+- RSS and sitemap generation
+
+Which one should I check? Or tell me where search lives under another name.
+```
 
 ## Finding a feature
 

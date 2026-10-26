@@ -105,7 +105,7 @@ Claude Code and Codex read different directories, so install into each agent you
 | Agent | Status |
 |---|---|
 | Claude Code (tested with 2.1.310) | **Tested** — 15 conversation scenarios, one run each, on the synthetic project. See [Verification](#verification) |
-| Codex CLI | **Not yet verified.** The skill uses only standard Agent Skills fields and Codex documents the same format, but no scenario run has passed yet |
+| Codex CLI (tested with 0.160.1) | **Tested** — the same 15 scenarios, one run each. Three scenarios that fell short in the first run were re-run after a skill fix and passed. Codex runs could not be isolated from the tester's global agent instructions |
 | Other agents, claude.ai | Not tested |
 
 The skill follows the [Agent Skills specification](https://agentskills.io/specification)
@@ -122,6 +122,9 @@ The skill follows the [Agent Skills specification](https://agentskills.io/specif
   you understand everything. The summary lists what was not covered.
 - **Large repositories** are explored per question, so only part of the code is read.
 - **Model output varies.** The same answer can occasionally get a different verdict.
+- **Your agent's own instructions win.** The skill replies in the language you write in,
+  but a global instruction in your agent (for example "always answer in Korean") takes
+  precedence.
 - **Cost** is whatever your agent's usage costs; the skill adds no separate service.
 - One scenario is not tested yet: the assistant asking a question with a false premise and
   you pointing it out (it needs a hand-made conversation).
