@@ -41,13 +41,13 @@ not save anything.
 
 ```sh
 # Current project, for the agents you choose
-npx skills add <owner>/code-understanding-coach
+npx skills add WooHey-P/code-understanding-coach
 
 # All your projects
-npx skills add <owner>/code-understanding-coach -g
+npx skills add WooHey-P/code-understanding-coach -g
 
 # Pick agents explicitly, no prompts
-npx skills add <owner>/code-understanding-coach -a claude-code codex -y
+npx skills add WooHey-P/code-understanding-coach -a claude-code codex -y
 ```
 
 [`skills`](https://github.com/vercel-labs/skills) is the open-source skills CLI from
@@ -67,7 +67,7 @@ The skill is one folder, `skills/code-understanding-coach/`. Copy it into your a
 skills directory.
 
 ```sh
-git clone https://github.com/<owner>/code-understanding-coach.git
+git clone https://github.com/WooHey-P/code-understanding-coach.git
 ```
 
 | Agent | All your projects | One project |

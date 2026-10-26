@@ -37,13 +37,13 @@ AI 에이전트가 코드를 많이 써 준 프로젝트에서, 배포하거나 
 
 ```sh
 # 현재 프로젝트에, 고른 에이전트용으로
-npx skills add <owner>/code-understanding-coach
+npx skills add WooHey-P/code-understanding-coach
 
 # 모든 프로젝트에
-npx skills add <owner>/code-understanding-coach -g
+npx skills add WooHey-P/code-understanding-coach -g
 
 # 에이전트를 지정하고 확인 질문 없이
-npx skills add <owner>/code-understanding-coach -a claude-code codex -y
+npx skills add WooHey-P/code-understanding-coach -a claude-code codex -y
 ```
 
 [`skills`](https://github.com/vercel-labs/skills)는 Vercel Labs가 만든 오픈소스 스킬 CLI이며
@@ -62,7 +62,7 @@ npx skills add <owner>/code-understanding-coach -a claude-code codex -y
 폴더에 복사하세요.
 
 ```sh
-git clone https://github.com/<owner>/code-understanding-coach.git
+git clone https://github.com/WooHey-P/code-understanding-coach.git
 ```
 
 | 에이전트 | 모든 프로젝트 | 한 프로젝트 |
