@@ -49,7 +49,8 @@ npx skills add <owner>/code-understanding-coach -a claude-code codex -y
 [`skills`](https://github.com/vercel-labs/skills)는 Vercel Labs가 만든 오픈소스 스킬 CLI이며
 (Anthropic·OpenAI 도구가 아님) Node.js가 필요합니다. 이 저장소의 `skills/` 폴더에서 스킬을 찾아
 `.claude/skills/`(Claude Code)와 `.agents/skills/`(Codex)에 설치합니다. `-g`를 주면 `~/` 아래에
-설치합니다.
+설치합니다. 기본적으로 `.agents/skills/`에 한 벌을 두고 Claude Code 쪽은 심볼릭 링크로
+연결하며(`--copy`를 주면 각각 복사), 설치 기록을 프로젝트의 `skills-lock.json`에 남깁니다.
 
 설치 후 프로젝트에서 *"프로젝트 이해도 점검해줘"* 또는 *"\<기능\> 이해도 점검해줘"*라고
 말하면 됩니다. 직접 호출하려면 Claude Code는 `/code-understanding-coach`, Codex는

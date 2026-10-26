@@ -53,7 +53,9 @@ npx skills add <owner>/code-understanding-coach -a claude-code codex -y
 [`skills`](https://github.com/vercel-labs/skills) is the open-source skills CLI from
 Vercel Labs (not an Anthropic or OpenAI tool) and needs Node.js. It finds the skill in this
 repository's `skills/` folder and installs it into `.claude/skills/` (Claude Code) and
-`.agents/skills/` (Codex), or the `~/` equivalents with `-g`.
+`.agents/skills/` (Codex), or the `~/` equivalents with `-g`. By default it keeps one copy
+in `.agents/skills/` and symlinks it for Claude Code (pass `--copy` for separate copies),
+and records the install in a `skills-lock.json` file in your project.
 
 Then, in your project, ask: *"Check my understanding of this project"* or *"Quiz me on
 \<feature\>"*. You can also invoke it explicitly with `/code-understanding-coach` (Claude
