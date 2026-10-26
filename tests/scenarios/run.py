@@ -75,7 +75,8 @@ def diff_hashes(before, after):
 
 
 def run(cmd, cwd):
-    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=CALL_TIMEOUT)
+    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=CALL_TIMEOUT,
+                          stdin=subprocess.DEVNULL)
     return proc.returncode, proc.stdout, proc.stderr
 
 
@@ -122,6 +123,8 @@ def codex_turn(project, message, session):
         events.append(event)
         if event.get("type") == "thread.started":
             session["id"] = event.get("thread_id", session["id"])
+        if event.get("type") == "turn.failed":
+            replies.append(f"[agent error] {(event.get('error') or {}).get('message', '')}")
         item = event.get("item") or {}
         if event.get("type") == "item.completed":
             if item.get("type") == "agent_message":
