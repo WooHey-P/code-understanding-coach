@@ -143,11 +143,17 @@ def codex_turn(project, message, session):
 AGENTS = {"claude": claude_turn, "codex": codex_turn}
 
 
-def persona_answer(level, transcript, oracle):
+QUESTION_MARKER = re.compile(r"시작\s*(지점|위치|점)|Start(ing)?\s*(from|point)", re.IGNORECASE)
+SCOPE_REPLY = {"ko": "둘 다 해 주세요. 회원 로그인부터 시작해 주세요.",
+               "en": "Both, please. Start with member login."}
+LANGUAGES = {"ko": "Korean", "en": "English"}
+
+
+def persona_answer(level, transcript, oracle, lang="ko"):
     last = next(t["text"] for t in reversed(transcript) if t["role"] == "assistant")
     prompt = (
         "You are role-playing a developer who is being quizzed about their own project by an AI assistant. "
-        "Write ONLY the developer's reply, in Korean, as typed quickly in a chat box. No preamble.\n\n"
+        f"Write ONLY the developer's reply, in {LANGUAGES[lang]}, as typed quickly in a chat box. No preamble.\n\n"
         f"How to answer: {PERSONA_LEVELS[level]}\n\n"
         "Ground truth about the project (use it to decide what is correct; the assistant cannot see it):\n"
         f"<fact_sheet>\n{oracle}\n</fact_sheet>\n\n"
@@ -217,7 +223,18 @@ def play(scenario, agent, config, oracle, out_dir):
     shutil.copytree(SKILL_DIR, project / INSTALL_DIRS[agent] / SKILL_NAME)
 
     session = {"id": str(uuid.uuid4())}
+    lang = scenario.get("lang", "ko")
     transcript, all_tools, all_events, changes = [], [], [], []
+
+    def agent_turn(message):
+        before = file_hashes(project, agent)
+        reply, tools, events = AGENTS[agent](project, message, session)
+        changes.extend(diff_hashes(before, file_hashes(project, agent)))
+        all_tools.extend(tools)
+        all_events.extend(events)
+        transcript.append({"role": "assistant", "text": reply, "tools": [t["name"] for t in tools]})
+        return reply
+
     for turn in scenario["turns"]:
         if "mutate" in turn:
             for edit in config["mutations"][turn["mutate"]]:
@@ -229,17 +246,18 @@ def play(scenario, agent, config, oracle, out_dir):
             transcript.append({"role": "runner", "text": f"(applied mutation `{turn['mutate']}` to the project copy)"})
             continue
         if "persona" in turn:
-            message = persona_answer(turn["persona"], transcript, oracle)
+            # A scoping question ("member or admin login?") is allowed behavior; answer it once
+            # so the simulated answer goes to a real quiz question.
+            last = next((t["text"] for t in reversed(transcript) if t["role"] == "assistant"), "")
+            if last and not QUESTION_MARKER.search(last):
+                transcript.append({"role": "user", "text": SCOPE_REPLY[lang], "note": "runner: answered a scoping question"})
+                agent_turn(SCOPE_REPLY[lang])
+            message = persona_answer(turn["persona"], transcript, oracle, lang)
             transcript.append({"role": "user", "text": message, "note": f"simulated developer: {turn['persona']}"})
         else:
             message = turn["user"]
             transcript.append({"role": "user", "text": message})
-        before = file_hashes(project, agent)
-        reply, tools, events = AGENTS[agent](project, message, session)
-        changes += diff_hashes(before, file_hashes(project, agent))
-        all_tools += tools
-        all_events += events
-        transcript.append({"role": "assistant", "text": reply, "tools": [t["name"] for t in tools]})
+        agent_turn(message)
 
     result = {"scenario": scenario["id"], "title": scenario["title"], "agent": agent,
               "acceptance": scenario["acceptance"], "session": session["id"],

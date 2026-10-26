@@ -76,6 +76,16 @@
       "turns": [{"user": "프로젝트 이해도 점검해줘"}, {"persona": "misconception"}]
     },
     {
+      "id": "DEMO-en", "title": "README demo (English): misconception, transfer, stop", "lang": "en",
+      "acceptance": [], "expect_skill": true,
+      "turns": [{"user": "Check my understanding of this project."}, {"persona": "misconception"}, {"persona": "correct"}, {"user": "Let's stop here. Summarize, please."}]
+    },
+    {
+      "id": "DEMO-ko", "title": "README demo (Korean): misconception, transfer, stop", "lang": "ko",
+      "acceptance": [], "expect_skill": true,
+      "turns": [{"user": "프로젝트 이해도 점검해줘"}, {"persona": "misconception"}, {"persona": "correct"}, {"user": "여기까지 할게요. 정리해 주세요."}]
+    },
+    {
       "id": "S15a", "title": "Plain explanation request must not trigger",
       "acceptance": [], "expect_skill": false,
       "turns": [{"user": "app/auth.py의 로그인 코드가 어떻게 동작하는지 설명해줘"}]

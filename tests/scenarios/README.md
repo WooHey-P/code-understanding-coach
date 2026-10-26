@@ -11,6 +11,7 @@ what happened.
 | `run.py` | The runner |
 | `CHECKLIST.md` | What a human checks in each transcript |
 | `../fixtures/book-rental/` | Synthetic project the skill examines |
+| `recorded/` | Transcripts behind the README demo GIFs (`DEMO-en`, `DEMO-ko` runs), kept so the GIFs can be traced and re-rendered |
 
 ## What is automatic and what is not
 
@@ -47,6 +48,21 @@ Results land in `tests/scenarios/results/<timestamp>/` (git-ignored):
   instructions; keep that in mind when reading results.
 - Simulated-developer answers come from a separate `claude -p` call in an empty
   directory. It sees `oracle.md` and the assistant's last message, never the project.
+
+## README demo GIFs
+
+`docs/assets/demo-*.gif` are rendered from real runs of the `DEMO-en` / `DEMO-ko`
+scenarios, never written by hand:
+
+```sh
+python3 tests/scenarios/run.py --agent claude --scenario DEMO-en,DEMO-ko
+cp tests/scenarios/results/<run>/claude/DEMO-en/transcript.md tests/scenarios/recorded/demo-en.md
+pip install pillow   # in a virtual environment; development only
+python3 scripts/render_demo.py tests/scenarios/recorded/demo-en.md docs/assets/demo-en.gif
+```
+
+The renderer removes markdown markers and summarizes tool calls as one status line; the
+words are the agent's output.
 
 ## Limits
 
