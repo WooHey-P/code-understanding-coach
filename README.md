@@ -167,8 +167,6 @@ leaked; a human checks question and grading quality with
 [`CHECKLIST.md`](tests/scenarios/CHECKLIST.md). See
 [`tests/scenarios/README.md`](tests/scenarios/README.md).
 
-Design notes and the recorded results live in [`docs/plans/initial-skill/`](docs/plans/initial-skill/).
-
 ## License
 
 [MIT](LICENSE)

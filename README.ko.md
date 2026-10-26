@@ -159,8 +159,6 @@ python3 tests/scenarios/run.py --agent claude --scenario all --jobs 4   # 실제
 질문과 채점의 질은 사람이 [`CHECKLIST.md`](tests/scenarios/CHECKLIST.md)로 판정합니다.
 자세한 내용은 [`tests/scenarios/README.md`](tests/scenarios/README.md)에 있습니다.
 
-설계 기록과 실행 결과는 [`docs/plans/initial-skill/`](docs/plans/initial-skill/)에 있습니다.
-
 ## 라이선스
 
 [MIT](LICENSE)

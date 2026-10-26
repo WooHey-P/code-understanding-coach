@@ -6,3 +6,6 @@ tests/scenarios/results/
 
 __pycache__/
 .DS_Store
+
+# Owner's working notes (research, plans, reviews); kept locally, not published
+docs/plans/
