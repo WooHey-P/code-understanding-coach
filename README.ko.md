@@ -33,6 +33,30 @@ AI 에이전트가 코드를 많이 써 준 프로젝트에서, 배포하거나 
 
 ## 설치
 
+### skills CLI로 설치 (권장)
+
+```sh
+# 현재 프로젝트에, 고른 에이전트용으로
+npx skills add <owner>/code-understanding-coach
+
+# 모든 프로젝트에
+npx skills add <owner>/code-understanding-coach -g
+
+# 에이전트를 지정하고 확인 질문 없이
+npx skills add <owner>/code-understanding-coach -a claude-code codex -y
+```
+
+[`skills`](https://github.com/vercel-labs/skills)는 Vercel Labs가 만든 오픈소스 스킬 CLI이며
+(Anthropic·OpenAI 도구가 아님) Node.js가 필요합니다. 이 저장소의 `skills/` 폴더에서 스킬을 찾아
+`.claude/skills/`(Claude Code)와 `.agents/skills/`(Codex)에 설치합니다. `-g`를 주면 `~/` 아래에
+설치합니다.
+
+설치 후 프로젝트에서 *"프로젝트 이해도 점검해줘"* 또는 *"\<기능\> 이해도 점검해줘"*라고
+말하면 됩니다. 직접 호출하려면 Claude Code는 `/code-understanding-coach`, Codex는
+`$code-understanding-coach`를 씁니다.
+
+### 직접 복사
+
 스킬은 `skills/code-understanding-coach/` 폴더 하나입니다. 사용하는 에이전트의 스킬
 폴더에 복사하세요.
 
@@ -55,26 +79,19 @@ mkdir -p ~/.agents/skills
 cp -R code-understanding-coach/skills/code-understanding-coach ~/.agents/skills/
 ```
 
-한 프로젝트에만 쓰려면 그 프로젝트의 `.claude/skills/` 또는 `.agents/skills/`에 복사합니다.
 Claude Code와 Codex는 서로 다른 폴더를 읽으므로, 쓰는 에이전트마다 따로 설치해야 합니다.
-
-설치 후 프로젝트에서 *"프로젝트 이해도 점검해줘"* 또는 *"\<기능\> 이해도 점검해줘"*라고
-말하면 됩니다. 직접 호출하려면 Claude Code는 `/code-understanding-coach`, Codex는
-`$code-understanding-coach`를 씁니다.
 
 ### 업데이트
 
-```sh
-cd code-understanding-coach && git pull
-```
-
-그다음 폴더를 다시 복사합니다. `cp -R` 대신 심볼릭 링크로 설치했다면 `git pull`만 하면 됩니다.
+- skills CLI: `npx skills update` (전역 설치는 `-g`). `npx skills check`로 업데이트가 있는지 볼 수 있습니다.
+- 직접 복사: 클론한 폴더에서 `git pull` 후 다시 복사합니다.
 
 ### 제거
 
-스킬 폴더에 복사한 `code-understanding-coach` 폴더를 지웁니다. Codex에서는 지우지 않고 끌 수도
-있습니다. `~/.codex/config.toml`에 `[[skills.config]]` 항목을 `enabled = false`로 추가하고
-Codex를 다시 시작하세요.
+- skills CLI: `npx skills remove code-understanding-coach` (전역 설치는 `-g`).
+- 직접 복사: 스킬 폴더에 복사한 `code-understanding-coach` 폴더를 지웁니다.
+- Codex에서는 지우지 않고 끌 수도 있습니다. `~/.codex/config.toml`에 `[[skills.config]]` 항목을
+  `enabled = false`로 추가하고 Codex를 다시 시작하세요.
 
 ## 지원 환경
 

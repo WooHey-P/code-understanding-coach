@@ -37,6 +37,30 @@ not save anything.
 
 ## Install
 
+### With the skills CLI (recommended)
+
+```sh
+# Current project, for the agents you choose
+npx skills add <owner>/code-understanding-coach
+
+# All your projects
+npx skills add <owner>/code-understanding-coach -g
+
+# Pick agents explicitly, no prompts
+npx skills add <owner>/code-understanding-coach -a claude-code codex -y
+```
+
+[`skills`](https://github.com/vercel-labs/skills) is the open-source skills CLI from
+Vercel Labs (not an Anthropic or OpenAI tool) and needs Node.js. It finds the skill in this
+repository's `skills/` folder and installs it into `.claude/skills/` (Claude Code) and
+`.agents/skills/` (Codex), or the `~/` equivalents with `-g`.
+
+Then, in your project, ask: *"Check my understanding of this project"* or *"Quiz me on
+\<feature\>"*. You can also invoke it explicitly with `/code-understanding-coach` (Claude
+Code) or `$code-understanding-coach` (Codex).
+
+### Manually
+
 The skill is one folder, `skills/code-understanding-coach/`. Copy it into your agent's
 skills directory.
 
@@ -59,27 +83,20 @@ mkdir -p ~/.agents/skills
 cp -R code-understanding-coach/skills/code-understanding-coach ~/.agents/skills/
 ```
 
-For one project, copy into that project's `.claude/skills/` or `.agents/skills/` instead.
 Claude Code and Codex read different directories, so install into each agent you use.
-
-Then, in your project, ask: *"Check my understanding of this project"* or *"Quiz me on
-\<feature\>"*. You can also invoke it explicitly with `/code-understanding-coach` (Claude
-Code) or `$code-understanding-coach` (Codex).
 
 ### Update
 
-```sh
-cd code-understanding-coach && git pull
-```
-
-Then copy the folder again (or install with a symbolic link instead of `cp -R`, and
-`git pull` is enough).
+- skills CLI: `npx skills update` (add `-g` for global installs). `npx skills check` lists
+  available updates.
+- Manual: `git pull` in your clone, then copy the folder again.
 
 ### Uninstall
 
-Delete the copied `code-understanding-coach` folder from the skills directory. In Codex you
-can also disable it without deleting: add a `[[skills.config]]` entry with `enabled = false`
-to `~/.codex/config.toml` and restart Codex.
+- skills CLI: `npx skills remove code-understanding-coach` (add `-g` for global installs).
+- Manual: delete the copied `code-understanding-coach` folder from the skills directory.
+- Codex can also disable it without deleting: add a `[[skills.config]]` entry with
+  `enabled = false` to `~/.codex/config.toml` and restart Codex.
 
 ## Supported environments
 
