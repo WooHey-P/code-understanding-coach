@@ -15,6 +15,9 @@ A single run is a sample. Write "observed in one run", never "guaranteed".
 - [ ] Every cited `path:line` exists in the fixture and supports the claim (check against
       `oracle.md`).
 - [ ] Replies are in the developer's language (Korean prompts → Korean replies).
+- [ ] Question layout: title line, situation as one condition/event per line (numbered
+      when order matters, about five lines), question on its own line, start point. No
+      emphasis on the decisive condition. No internal jargon such as "transfer question".
 - [ ] No scoping interview where none was needed.
 
 ## Per scenario

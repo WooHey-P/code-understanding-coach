@@ -90,12 +90,16 @@ Read `references/questions.md` before writing the first question.
 
 Each question message contains, in order:
 
-1. One or two lines of context: which area, and the conditions that matter.
-2. The question: one prediction about this concrete situation, and why. Do not bundle
-   several sub-questions ("what status, what count, and is a record saved?"); pick the
-   one that best tests the idea.
-3. A starting point: the entry file or function as `path:line`, so they can open the
+1. A title line: question number and area.
+2. The situation as a short list, one condition or event per line — numbered when the
+   order of events matters. A paragraph packed with conditions is hard to scan.
+3. The question on its own line: one prediction about this situation, and why. Do not
+   bundle several sub-questions ("what status, what count, and is a record saved?");
+   pick the one that best tests the idea.
+4. A starting point: the entry file or function as `path:line`, so they can open the
    code. Do not point at the lines that contain the answer.
+
+The exact layout and rules are in `references/questions.md`.
 
 Before you send it, privately settle the **minimum answer**: the observable outcome, the
 essential cause, and the evidence lines. Do not show these. Then check that the premise
@@ -143,6 +147,8 @@ filling in the answer for them.
   the missing part only.
 - **Misconception:** explain the real execution path with `path:line`, then ask a
   *transfer question*: the same concept under different inputs, ordering, or placement.
+  "Transfer question" is your term; in the conversation call it something like "same
+  idea, different situation".
   Rephrasing the same question does not count.
 - **"I don't know", "explain it", "just tell me the answer":** treat it as a request for
   an explanation. Explain, then ask a transfer question. Record the concept as

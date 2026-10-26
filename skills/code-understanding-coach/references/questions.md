@@ -7,11 +7,46 @@ two lines is too easy.
 ## Shape of a question message
 
 ```text
-<Area> — <one or two lines of context and the conditions that matter>
+<N> · <Area>
 
-<The question: what happens in this concrete situation, and why?>
+Situation — <shared setup, e.g. "default config">
+1. <first event or condition>
+2. <next event>
+3. <...>
+
+Question: <what happens in this situation, and why?>
 
 Start from: <path:line of the entry point>
+```
+
+Layout rules, because a paragraph of seven conditions hides the ones that matter:
+
+- **One condition or event per line.** Number the lines when the order of events matters
+  (a timeline); use bullets when it does not.
+- **Keep it to about five lines.** Leave out conditions that do not change the answer.
+  Fold minor qualifiers into the line they belong to ("drifts 40 m off every remaining
+  step, GPS accuracy good").
+- **Keep the numbers** — distances, durations, counts — inside the lines.
+- **Do not emphasize the decisive condition.** Bold, capitals, or "note that…" on the line
+  that decides the answer gives it away. Format every line the same way.
+- **The question stands alone** on its own line, one sentence.
+- Translate the labels ("Situation", "Question", "Start from") into the developer's
+  language.
+
+Example:
+
+```text
+2 · Job retries (queue ↔ worker ↔ webhook)
+
+Situation — default retry settings
+1. A worker picks up job #7 and calls the payment provider
+2. The provider is slow; the worker hits its 30 s timeout and the job is re-queued
+3. The provider finishes the first call 5 s later and succeeds
+4. A second worker picks up job #7 again and calls the provider
+
+Question: How many times is the customer charged? Why?
+
+Start from: worker/run_job.py:42
 ```
 
 One question per message, asking for **one** prediction and its reason. "What status
@@ -86,3 +121,5 @@ After a misconception or an explanation request, ask about the same concept in a
 situation: change the input, the order of events, or where it happens. It must require
 applying the idea, not finding the explanation you just gave. Label hypothetical
 conditions as hypothetical; do not pretend the code contains something it does not.
+Use the same layout as any question, and title it in plain words ("same idea, different
+situation"), not "transfer question".
