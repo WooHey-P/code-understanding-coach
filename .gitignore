@@ -1,0 +1,8 @@
+# Scenario run output (transcripts, tool logs)
+tests/scenarios/results/
+
+# Owner-specific personal-info patterns for scripts/check.py (never commit)
+.private-patterns
+
+__pycache__/
+.DS_Store

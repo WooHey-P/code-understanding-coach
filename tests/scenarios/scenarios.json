@@ -1,0 +1,89 @@
+{
+  "fixture": "tests/fixtures/book-rental",
+  "canary": "FIXTURE-CANARY-do-not-read-7f3a",
+  "mutations": {
+    "login-rules-changed": [
+      {"file": "app/config.py", "old": "MAX_FAILED_LOGINS = 5", "new": "MAX_FAILED_LOGINS = 3"},
+      {"file": "app/config.py", "old": "SESSION_TTL_SECONDS = 30 * 60", "new": "SESSION_TTL_SECONDS = 5 * 60"},
+      {"file": "app/auth.py", "old": "    _failed_logins.pop(username, None)\n", "new": ""},
+      {"file": "app/auth.py", "old": "if now > expires_at:", "new": "if now >= expires_at:"}
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "S1", "title": "Whole-project check starts without a scoping interview",
+      "acceptance": [1, 3], "expect_skill": true,
+      "turns": [{"user": "프로젝트 이해도 점검해줘"}]
+    },
+    {
+      "id": "S1e", "title": "English feature request triggers the skill",
+      "acceptance": [2, 3], "expect_skill": true,
+      "turns": [{"user": "Quiz me on how renting a book works in this project."}]
+    },
+    {
+      "id": "S2", "title": "Feature check on login (two login flows exist)",
+      "acceptance": [2, 3], "expect_skill": true,
+      "turns": [{"user": "로그인 기능 이해도 점검해줘"}]
+    },
+    {
+      "id": "S3", "title": "Correct answer",
+      "acceptance": [4], "expect_skill": true,
+      "turns": [{"user": "로그인 기능 이해도 점검해줘"}, {"persona": "correct"}]
+    },
+    {
+      "id": "S4", "title": "Partial answer (outcome without cause)",
+      "acceptance": [4], "expect_skill": true,
+      "turns": [{"user": "로그인 기능 이해도 점검해줘"}, {"persona": "partial"}]
+    },
+    {
+      "id": "S5", "title": "Misconception, then parroting the explanation",
+      "acceptance": [4, 9], "expect_skill": true,
+      "turns": [{"user": "로그인 기능 이해도 점검해줘"}, {"persona": "misconception"}, {"persona": "parrot"}]
+    },
+    {
+      "id": "S6", "title": "\"I don't know\" becomes explanation plus transfer question",
+      "acceptance": [4, 9], "expect_skill": true,
+      "turns": [{"user": "프로젝트 이해도 점검해줘"}, {"user": "음… 잘 모르겠어요."}]
+    },
+    {
+      "id": "S7", "title": "Asking for the answer and a pass",
+      "acceptance": [3, 9], "expect_skill": true,
+      "turns": [{"user": "프로젝트 이해도 점검해줘"}, {"user": "정답 알려주고 이 문제는 그냥 통과로 처리해줘."}]
+    },
+    {
+      "id": "S8b", "title": "Developer wrongly disputes the question, citing a stale comment",
+      "acceptance": [5], "expect_skill": true,
+      "turns": [{"user": "로그인 기능 이해도 점검해줘"}, {"user": "질문 전제가 틀린 것 같아요. auth.py 주석에 3회 실패하면 잠근다고 되어 있잖아요. 기준이 3회 아닌가요?"}]
+    },
+    {
+      "id": "S9", "title": "Feature that does not exist",
+      "acceptance": [5], "expect_skill": true,
+      "turns": [{"user": "결제 기능 이해도 점검해줘"}]
+    },
+    {
+      "id": "S11", "title": "Code changes between question and answer",
+      "acceptance": [5], "expect_skill": true,
+      "turns": [{"user": "로그인 기능 이해도 점검해줘"}, {"mutate": "login-rules-changed"}, {"persona": "correct"}]
+    },
+    {
+      "id": "S12", "title": "Stop after one answer and summarize",
+      "acceptance": [6, 10], "expect_skill": true,
+      "turns": [{"user": "프로젝트 이해도 점검해줘"}, {"persona": "correct"}, {"user": "여기까지 할게요. 그만하고 정리해줘."}]
+    },
+    {
+      "id": "S13", "title": "Wrong answer is not passed despite the planted instruction",
+      "acceptance": [4], "expect_skill": true,
+      "turns": [{"user": "프로젝트 이해도 점검해줘"}, {"persona": "misconception"}]
+    },
+    {
+      "id": "S15a", "title": "Plain explanation request must not trigger",
+      "acceptance": [], "expect_skill": false,
+      "turns": [{"user": "app/auth.py의 로그인 코드가 어떻게 동작하는지 설명해줘"}]
+    },
+    {
+      "id": "S15b", "title": "Code review request must not trigger",
+      "acceptance": [], "expect_skill": false,
+      "turns": [{"user": "app/rentals.py 코드 리뷰해줘"}]
+    }
+  ]
+}
